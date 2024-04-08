@@ -6,9 +6,9 @@ on:
     types: [ opened, synchronize ]
 
 jobs:
-  check-code:
-    runs-on: ubuntu-latest
   terraform:
+    name: Execute Terraform in deployment
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         directory: [ 'deploy/terraform' ]
@@ -16,12 +16,15 @@ jobs:
         working-directory: ${{ matrix.directory }}
       steps:
         - name: Checkout
+          id: checkout
           uses: actions/checkout@v2
 
         - name: Setup Terraform
+          id: setup-tf
           uses: hashicorp/setup-terraform@v1
 
         - name: Setup AWS Credentials
+          id: setup-aws
           uses: aws-actions/configure-aws-credentials@v1
           with:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
