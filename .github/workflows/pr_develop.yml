@@ -1,0 +1,57 @@
+name: PR
+on:
+ pull-request:
+   branches:
+     - develop
+   types: [opened, synchronize]
+
+jobs:
+  check-code:
+    runs-on: ubuntu-latest
+  terraform:
+    strategy:
+      matrix:
+        directory: [ 'deploy/terraform' ]
+      run:
+        working-directory: ${{ matrix.directory }}
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+
+        - name: Setup AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ secrets.AWS_REGION }}
+
+        - name: Terraform format
+          id: fmt
+          run: terraform fmt -check
+
+        - name: Terraform init
+          id: init
+          run: terraform init
+
+        - name: Terraform plan
+          id: plan
+          run: terraform plan -no-color
+          continue-on-error: true
+
+        - name: Comment PR
+          uses: actions/github-script@v3
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+              const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outputs.stdout }}\`
+              #### Terraform Initialization ⚙️\`${{ steps.init.outputs.stdout }}\`
+              #### Terraform Plan 📖\`${{ steps.plan.outputs.stdout }}\``;
+              github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `## Terraform checks in directory '${{ matrix.directory }}'\n` + output
+              })
