@@ -1,8 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "tfstate-proyecto-final"
     region = "us-east-1"
-    key    = "terraform.tfstate"
   }
 }
 
@@ -11,5 +9,5 @@ provider "aws" {
 }
 
 resource "aws_ecrpublic_repository" "repoTest3" {
-  repository_name = "repo-test-micro3a1"
+  repository_name = "repo-test-micro3"
 }

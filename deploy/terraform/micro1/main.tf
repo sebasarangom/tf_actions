@@ -1,6 +1,5 @@
 terraform {
   backend "s3" {
-    bucket = "tfstate-proyecto-final"
     region = "us-east-1"
   }
 }
@@ -10,5 +9,5 @@ provider "aws" {
 }
 
 resource "aws_ecrpublic_repository" "repoTest1" {
-  repository_name = "repo-test-micro11"
+  repository_name = "repo-test-micro1"
 }
