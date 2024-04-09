@@ -16,11 +16,16 @@ on:
       aws-region:
         required: true
         description: 'AWS Region to be used'
+      aws-s3-bucket:
+        required: true
+        description: 'AWS S3 Bucket'
 
 jobs:
   terraform:
     name: terraform
     runs-on: ubuntu-latest
+    env:
+      aws-s3-bucket: ${{ secrets.aws-s3-bucket }}
     steps:
       - name: Checkout
         id: checkout
