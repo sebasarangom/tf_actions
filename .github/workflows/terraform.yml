@@ -16,14 +16,13 @@ on:
         required: true
         description: 'Terraform folder'
 
-defaults:
-  run:
-    working_directory: ${{ inputs.terraform_directory }}
-
 jobs:
   terraform:
     name: terraform
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working_directory: ${{ inputs.terraform_directory }}
     steps:
       - name: Checkout
         id: checkout
