@@ -50,7 +50,7 @@ jobs:
       - name: Terraform init
         id: init
         working-directory: ${{ inputs.terraform_directory }}
-        run: terraform init -backend-config="path=${{ inputs.path }}"
+        run: terraform init -backend-config=path=${{ inputs.path }}
 
       - name: Terraform format
         id: fmt
