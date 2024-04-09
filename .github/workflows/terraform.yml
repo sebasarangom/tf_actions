@@ -6,10 +6,14 @@ on:
         type: string
         required: true
         description: 'Terraform folder'
-      path:
+      bucket:
         type: string
         required: true
-        description: 'Path for the tfstate in S3'
+        description: 'Bucket for the tfstate in S3'
+      key:
+        type: string
+        required: true
+        description: 'Key for the tfstate in S3'
     secrets:
       aws-access-key-id:
         required: true
@@ -50,7 +54,7 @@ jobs:
       - name: Terraform init
         id: init
         working-directory: ${{ inputs.terraform_directory }}
-        run: terraform init -backend-config=path=${{ inputs.path }}
+        run: terraform init -backend-config=bucket=${{ inputs.bucket }} -backend-config=key=${{ inputs.key }}
 
       - name: Terraform format
         id: fmt

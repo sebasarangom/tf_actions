@@ -31,7 +31,8 @@ jobs:
     uses: ./.github/workflows/terraform.yml
     with:
       terraform_directory: deploy/terraform/micro1
-      path: 'micro1-tfstate'
+      bucket: 'tfstate-proyecto-final'
+      key: 'micro1.terraform.tfstate'
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
