@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        directory: [ 'deploy/terraform/micro1', 'deploy/terraform/micro3', 'deploy/terraform/micro3' ]
+        directory: [ 'deploy/terraform/micro1', 'deploy/terraform/micro2', 'deploy/terraform/micro3' ]
     defaults:
       run:
         working-directory: ${{ matrix.directory }}
