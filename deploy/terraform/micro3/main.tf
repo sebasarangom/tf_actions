@@ -11,5 +11,5 @@ provider "aws" {
 }
 
 resource "aws_ecrpublic_repository" "repoTest3" {
-  repository_name = "repo-test-micro3"
+  repository_name = "repo-test-micro3a1"
 }
