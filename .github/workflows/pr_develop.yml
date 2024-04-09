@@ -55,7 +55,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`            
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\``;
+            #### Terraform Plan 📖\`${{ steps.plan.outputs.stdout }}\``;
             
             github.issues.createComment({
               issue_number: context.issue.number,
