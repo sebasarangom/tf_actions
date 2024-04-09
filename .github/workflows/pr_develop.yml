@@ -66,10 +66,11 @@ jobs:
               body: `#### Terraform checks in directory '${{ matrix.directory }}'\n` + output
             })
 
-    tfapply:
-      name: merge
-      runs-on: ubuntu-latest
-      steps:
-        - name: Terraform apply
-          id: apply
-          run: terraform apply -auto-approve
+  tfapply:
+    name: merge
+    runs-on: ubuntu-latest
+    needs: 'terraform'
+    steps:
+      - name: Terraform apply
+        id: apply
+        run: terraform apply -auto-approve
