@@ -1,17 +1,14 @@
 name: terraform
 on:
   workflow_call:
+    secrets:
+      aws_region:
+        required: true
+        description: 'AWS Region to be used'
 
-secrets:
-  aws_region:
-    required: true
-    description: 'AWS Region to be used'
-
-#secrets:
-
-#defaults:
-#  run:
-#    working_directory: ${{ inputs.terraform_directory }}
+    #defaults:
+    #  run:
+    #    working_directory: ${{ inputs.terraform_directory }}
 
 jobs:
   terraform:
