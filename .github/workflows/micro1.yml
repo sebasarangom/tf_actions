@@ -1,0 +1,29 @@
+name: micro1
+on:
+  push:
+    branches:
+      - 'feature**'
+    paths:
+      - 'micro1/**'
+
+jobs:
+  automerge-1:
+    name: Merge 'develop -> feature'
+    runs-on: ubuntu-latest
+    outputs:
+      salida: ${{ steps.prepare_release.outputs.respuesta }}
+    steps:
+      - name: Integrar develop en feature
+        uses: tukasz/direct-merge-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          source-branch: develop
+          target-branch: ${{ github.ref }}
+          commit-message: "Actualizar rama feature con respecto a rama develop"
+      - name: prepare_release
+        id: prepare_release
+        run: |
+          echo "::set-output name=respuesta::$(echo "${{ github.event.head_commit.message }}" | awk '{print $NF}')"
+
+  call-terraform:
+    uses: ./.github/workflows/terraform.yml
