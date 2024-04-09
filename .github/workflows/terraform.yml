@@ -6,9 +6,9 @@ on:
 #
 #secrets:
 
-defaults:
-  run:
-    working_directory: ${{ inputs.terraform_directory }}
+#defaults:
+#  run:
+#    working_directory: ${{ inputs.terraform_directory }}
 
 jobs:
   terraform:
