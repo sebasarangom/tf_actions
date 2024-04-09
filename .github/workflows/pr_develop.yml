@@ -57,15 +57,13 @@ jobs:
             const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
             
-            Show Plan
+            ${{ steps.plan.outputs.stdout }}\`
             
-            \`\`\`${process.env.PLAN}\`\`\`
-            
-            *Pusher : @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            *Pusher : @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
             
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `Terraform checks in directory '${{ matrix.directory }}'\n` + output
+              body: `#### Terraform checks in directory '${{ matrix.directory }}'\n` + output
             })
