@@ -20,9 +20,12 @@ jobs:
   terraform:
     name: terraform
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        directory: [ ${{ inputs.terraform_directory }} ]
     defaults:
       run:
-        working_directory: ${{ inputs.terraform_directory }}
+        working-directory: ${{ matrix.directory }}
     steps:
       - name: Checkout
         id: checkout
