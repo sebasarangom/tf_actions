@@ -2,9 +2,9 @@ name: terraform
 on:
   workflow_call:
 
-inputs:
-
-secrets:
+#inputs:
+#
+#secrets:
 
 defaults:
   run:
