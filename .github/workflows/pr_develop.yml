@@ -65,3 +65,11 @@ jobs:
               repo: context.repo.repo,
               body: `#### Terraform checks in directory '${{ matrix.directory }}'\n` + output
             })
+
+    tfapply:
+      name: merge
+      runs-on: ubuntu-latest
+      steps:
+        - name: Terraform apply
+          id: apply
+          run: terraform apply -auto-approve
