@@ -6,6 +6,8 @@ on:
 
 jobs:
   tfapply:
+    name: merge
+    runs-on: ubuntu-latest
     steps:
       - name: Terraform apply
         id: apply
