@@ -38,15 +38,15 @@ jobs:
 
       - name: Terraform format
         id: fmt
-        run: terraform fmt -check
+        run: terraform fmt -recursive
 
       - name: Terraform validate
         id: validate
-        run: terraform validate -no-color
+        run: terraform validate
 
       - name: Terraform plan
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan
         continue-on-error: true
 
       - name: Comment PR
@@ -54,12 +54,18 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outputs.stdout }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outputs.stdout }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outputs.stdout }}\``;
-            github.issues.createComment({
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            
+            Show Plan
+            
+            \`\`\`${process.env.PLAN}\`\`\`
+            
+            *Pusher : @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## Terraform checks in directory '${{ matrix.directory }}'\n` + output
+              body: output
             })
