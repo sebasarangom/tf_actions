@@ -4,7 +4,7 @@ on:
     branches:
       - 'feature**'
     paths:
-      - 'micro1/**'
+      - 'deploy/terraform/micro1/**'
 
 jobs:
   automerge-1:
