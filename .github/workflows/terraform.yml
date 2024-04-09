@@ -1,0 +1,62 @@
+name: terraform
+on:
+  workflow_call:
+    inputs:
+      terraform_directory:
+        type: string
+        required: true
+        description: 'Terraform folder'
+    secrets:
+      aws-access-key-id:
+        required: true
+        description: 'AWS Access Id'
+      aws-secret-access-key:
+        required: true
+        description: 'AWS Secret Key'
+      aws-region:
+        required: true
+        description: 'AWS Region to be used'
+
+jobs:
+  terraform:
+    name: terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        id: setup-tf
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Setup AWS Credentials
+        id: setup-aws
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.aws-access-key-id }}
+          aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
+          aws-region: ${{ secrets.aws-region }}
+
+      - name: Terraform init
+        id: init
+        working-directory: ${{ inputs.terraform_directory }}
+        run: terraform init
+
+      - name: Terraform format
+        id: fmt
+        run: terraform fmt -recursive
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+
+      - name: Terraform plan
+        id: plan
+        working-directory: ${{ inputs.terraform_directory }}
+        run: terraform plan
+
+      - name: Terraform apply
+        id: apply
+        working-directory: ${{ inputs.terraform_directory }}
+        run: terraform apply -auto-approve
