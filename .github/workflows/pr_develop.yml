@@ -54,13 +54,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `*Pusher : @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`            
             #### Terraform Plan 📖\`${{ steps.plan.outputs.stdout }}\``;
             
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `#### Terraform checks in directory '${{ matrix.directory }}'\n` + output
+              body: `### Terraform checks in directory '${{ matrix.directory }}'\n` + output
             })
