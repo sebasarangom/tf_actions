@@ -2,8 +2,11 @@ name: terraform
 on:
   workflow_call:
 
-#inputs:
-#
+inputs:
+  aws_region:
+    required: true
+    description: 'AWS Region to be used'
+
 #secrets:
 
 #defaults:

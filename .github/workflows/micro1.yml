@@ -26,4 +26,7 @@ jobs:
           echo "::set-output name=respuesta::$(echo "${{ github.event.head_commit.message }}" | awk '{print $NF}')"
 
   call-terraform:
+    needs: 'automerge-1'
     uses: ./.github/workflows/terraform.yml
+    inputs:
+      aws_region: ${{ secrets.AWS_REGION }}
