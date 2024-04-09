@@ -12,9 +12,9 @@ jobs:
     strategy:
       matrix:
         directory: [ 'deploy/terraform' ]
-      defaults:
-        run:
-          working-directory: ${{ matrix.directory }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
     steps:
       - name: Checkout
         id: checkout
