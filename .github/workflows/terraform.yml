@@ -11,10 +11,14 @@ on:
       aws-region:
         required: true
         description: 'AWS Region to be used'
+    inputs:
+      terraform_directory:
+        required: true
+        description: 'Terraform folder'
 
-    #defaults:
-    #  run:
-    #    working_directory: ${{ inputs.terraform_directory }}
+defaults:
+  run:
+    working_directory: ${{ inputs.terraform_directory }}
 
 jobs:
   terraform:
