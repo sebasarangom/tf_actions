@@ -8,7 +8,7 @@ on:
       aws-secret-access-key:
         required: true
         description: 'AWS Secret Key'
-      aws_region:
+      aws-region:
         required: true
         description: 'AWS Region to be used'
 
