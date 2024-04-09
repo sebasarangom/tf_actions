@@ -3,6 +3,7 @@ on:
   workflow_call:
     inputs:
       terraform_directory:
+        type: string
         required: true
         description: 'Terraform folder'
     secrets:
