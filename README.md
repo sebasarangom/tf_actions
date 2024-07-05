@@ -49,3 +49,5 @@ echo 'export PATH="/Users/juansebastian.arango/Components/apache-maven-3.8.6/bin
 
 /Users/juansebastian.arango/Components/Mono2Micro-CLI
 echo 'export PATH="/Users/juansebastian.arango/Components/Mono2Micro-CLI:$PATH"' >> ~/.zshrc
+
+export PATH=$PATH:/Users/a68212/dev/miso/modernizacion/Mono2Micro-CLI
